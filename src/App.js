@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Canvas, useThree, extend } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -7,10 +7,21 @@ import './App.css';
 extend({ OrbitControls });
 
 function Cube(props) {
+  const [isBig, setIsBig] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const size = isBig ? 2 : 1;
+  const color = isHovered ? "pink" : "salmon";
+
   return (
-    <mesh {...props}>
-      <boxBufferGeometry attach="geometry" args={[2, 2, 1]} /> {/* args = [Width, Height, Depth]  */}
-      <meshStandardMaterial attach="material" color="pink" />
+    <mesh 
+      {...props}
+      onClick={() => setIsBig(!isBig)}
+      onPointerOut={() => setIsHovered(false)}
+      onPointerOver={() => setIsHovered(true)}
+    >
+      <boxBufferGeometry attach="geometry" args={[size, size, size]} />{" "}{/* args = [Width, Height, Depth]  */}
+      <meshStandardMaterial attach="material" color={color} />
     </mesh>
   );
 };
