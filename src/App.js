@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Canvas, useThree, extend } from 'react-three-fiber';
+import React, { useState, useRef } from 'react';
+import { Canvas, useThree, extend, useFrame } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import './App.css';
@@ -9,6 +9,13 @@ extend({ OrbitControls });
 function Cube(props) {
   const [isBig, setIsBig] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef();
+
+  // DON'T use useState with useFrame due to the 60f/s speed of Rotation!!!
+  useFrame(() => {
+    ref.current.rotation.x += 0.01;
+    ref.current.rotation.y += 0.01;
+  });
 
   const size = isBig ? 2 : 1;
   const color = isHovered ? "pink" : "salmon";
@@ -16,6 +23,7 @@ function Cube(props) {
   return (
     <mesh 
       {...props}
+      ref={ref}
       onClick={() => setIsBig(!isBig)}
       onPointerOut={() => setIsHovered(false)}
       onPointerOver={() => setIsHovered(true)}
