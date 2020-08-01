@@ -35,8 +35,19 @@ function Cube(props) {
       onPointerOut={() => setIsHovered(false)}
       onPointerOver={() => setIsHovered(true)}
     >
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />{" "}{/* args = [Width, Height, Depth]  */}
-      <meshStandardMaterial attach="material" color={color} />
+      {/* Primitives */}
+      <sphereBufferGeometry attach="geometry" args={[1, 8, 6]} />  {/* sphere args = [Width, Height, Depth]  */}
+      {/* <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />  box args = [Width, Height, Depth]  */}
+      
+      {/* Materials */}
+      <meshPhongMaterial
+        flatShading={true} 
+        roughness={1} 
+        metalness={0.5}
+        shininess ={100}
+        attach="material" 
+        color={color} 
+      />
     </a.mesh>
   );
 };
