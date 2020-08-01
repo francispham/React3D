@@ -11,7 +11,6 @@ function Cube(props) {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef();
 
-  // DON'T use useState with useFrame due to the 60f/s speed of Rotation!!!
   useFrame(() => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
@@ -36,11 +35,7 @@ function Cube(props) {
       onPointerOut={() => setIsHovered(false)}
       onPointerOver={() => setIsHovered(true)}
     >
-      {/* Primitives */}
-      <sphereBufferGeometry attach="geometry" args={[1, 8, 6]} />  {/* sphere args = [Width, Height, Depth]  */}
-      {/* <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />  box args = [Width, Height, Depth]  */}
-      
-      {/* Materials */}
+      <sphereBufferGeometry attach="geometry" args={[1, 8, 6]} />      
       <meshPhongMaterial
         flatShading={true} 
         roughness={1} 
@@ -60,7 +55,7 @@ function Plane() {
       rotation={[-Math.PI / 2, 0, 0]}
       position={[0, -2, -5]}
     >
-      <planeBufferGeometry attach="geometry" args={[20, 20]} />
+      <planeBufferGeometry attach="geometry" args={[15, 15]} />
       <meshPhongMaterial attach="material" color="#D3D3D3" />
     </mesh>
   )
@@ -84,7 +79,7 @@ function Scene() {
   );
 };
 
-function App() {
+function Drei() {
   return (
     <Canvas shadowMap={true}>
       <Scene />
@@ -92,4 +87,4 @@ function App() {
   );
 };
 
-export default App;
+export default Drei;
