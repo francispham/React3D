@@ -31,6 +31,8 @@ function Cube(props) {
       ref={ref}
       scale={size}
       position-x={x}
+      castShadow={true}
+      receiveShadow={true}
       onClick={() => setIsBig(!isBig)}
       onPointerOut={() => setIsHovered(false)}
       onPointerOver={() => setIsHovered(true)}
@@ -54,8 +56,12 @@ function Cube(props) {
 
 function Plane() {
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-      <planeBufferGeometry attach="geometry" args={[10, 10]} />
+    <mesh 
+      receiveShadow={true}
+      rotation={[-Math.PI / 2, 0, 0]}
+      position={[0, -2, -5]}
+    >
+      <planeBufferGeometry attach="geometry" args={[20, 20]} />
       <meshPhongMaterial attach="material" color="#D3D3D3" />
     </mesh>
   )
@@ -70,7 +76,7 @@ function Scene() {
   return (
     <>
       <ambientLight />
-      <pointLight intensity={0.6} position={[0, 0, 3]} />
+      <spotLight castShadow={true} intensity={0.6} position={[0, 10, 4]} />
       <Cube rotation={[10, 10, 0]} position={[0, 0, 0]}/>
       <Cube rotation={[10, 20, 0]} position={[2, 2, 0]}/>
       <Plane />
@@ -81,7 +87,7 @@ function Scene() {
 
 function App() {
   return (
-    <Canvas>
+    <Canvas shadowMap={true}>
       <Scene />
     </Canvas>
   );
