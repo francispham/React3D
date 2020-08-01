@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { Canvas, useThree, extend, useFrame } from 'react-three-fiber';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { OrbitControls, Torus } from 'drei';
 import { a, useSpring } from 'react-spring/three';
 
-
-extend({ OrbitControls });
 
 function Cube(props) {
   const [isBig, setIsBig] = useState(false);
@@ -62,19 +60,23 @@ function Plane() {
 }
 
 function Scene() {
-  const { 
-    camera,
-    gl: { domElement }
-  } = useThree();
-
   return (
     <>
       <ambientLight />
       <spotLight castShadow={true} intensity={0.6} position={[0, 10, 4]} />
       <Cube rotation={[10, 10, 0]} position={[0, 0, 0]}/>
       <Cube rotation={[10, 20, 0]} position={[2, 2, 0]}/>
+      <Torus args={[1, 0.4, 10, 30]} position={[-3, 1, -1]}>
+        <meshPhongMaterial
+          roughness={1} 
+          metalness={0.5}
+          shininess ={100}
+          attach="material" 
+          color={"black"} 
+        />
+      </Torus>
       <Plane />
-      <orbitControls args={[camera, domElement]} />
+      <OrbitControls />
     </>
   );
 };
@@ -88,3 +90,4 @@ function Drei() {
 };
 
 export default Drei;
+    
